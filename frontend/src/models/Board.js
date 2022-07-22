@@ -75,8 +75,6 @@ module.exports = class Board {
     fillEmptyCells(newTyles) {
         if (!Array.isArray(newTyles))
             throw new Error("newTyles must be array");
-        if (this._emptyCells.length !== newTyles.length)
-            throw new Error("Empty cells length is not equal to provided tyle length");
         for (const col of this._gamingBoard) {
             for (let j = 0; j < col.length; ++j) {
                 if (col[j].tyle === null) {
