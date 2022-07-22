@@ -7,13 +7,6 @@ module.exports = class Cell extends BaseCell {
         this._tyle = null;
     }
 
-    get tyleColor() {
-        if (this._tyle)
-            return super.tyleColor
-        else
-            return null
-    }
-
     /**
      * @param {Tyle} tyle New Tyle
      */

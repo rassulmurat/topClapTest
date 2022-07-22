@@ -13,7 +13,7 @@ module.exports = class Board {
     /**
      * @param {Number} height Высота игровой доски 
      * @param {Number} width Ширина игровой доски
-     * @param {Tyle[]} tyles Массив тайлов для заполнения
+     * @param {Tyle[]} tyles Массив тайлов для заполнения, отсчет начинается слева снизу, 0 обект будет стоять в ячейке [0][0] последний [width-1][height-1]
      */
     constructor(height, width, tyles) {
         if (!Array.isArray(tyles))
@@ -23,7 +23,7 @@ module.exports = class Board {
         this._height = height;
         this._width = width;
         /**
-         * @type {Array.<Cell[]>} Массив ячеек, 1 массив колонки, 2 массив ряды
+         * @type {Array.<Cell[]>} Массив ячеек, 1 массив колонки, 2 массив ряды, отсчет начинается слева снизу
          */
         this._gamingBoard = new Array(width);
         for (let i = 0; i < width; ++i) {
@@ -99,7 +99,7 @@ module.exports = class Board {
     }
 
     /**
-     * Возвращает массив ячеек
+     * Возвращает массив ячеек, отсчет начинается слева снизу
      * @returns {Array.<BaseCell[]>} Возвращает массив ячеек, 1 массив колонки, 2 массив ряды
      */
     getCells() {

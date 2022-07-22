@@ -31,6 +31,9 @@ module.exports = class BaseCell {
      * @returns {string} - Цвет тайла
      */
     get tyleColor() {
-        return this._tyle.color;
+        if (this._tyle)
+            return this._tyle.color
+        else
+            return null
     }
 }
