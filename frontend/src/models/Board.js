@@ -3,6 +3,7 @@
 const Tyle = require("./Tyle");
 const BaseCell = require("./BaseCell");
 const Cell = require("./Cell");
+const random = require("random");
 
 /**
  * Класс отвечающий за рассположение и движение тайлов в ячейках
@@ -10,7 +11,6 @@ const Cell = require("./Cell");
 module.exports = class Board {
 
     /**
-     * 
      * @param {Number} height Высота игровой доски 
      * @param {Number} width Ширина игровой доски
      * @param {Tyle[]} tyles Массив тайлов для заполнения
@@ -36,8 +36,22 @@ module.exports = class Board {
         }
     }
 
+    /**
+     * Случайно перемешивает тайлы в ячейках
+     */
     shuffleTyles() {
-
+        const heightRandGen = random.uniformInt(0, this._height - 1);
+        const widthRandGen = random.uniformInt(0, this._width - 1);
+        
+        for(let i = 0; i < this._width; ++i) {
+            for(let j = 0; j < this._height; ++j) {
+                let x = widthRandGen();
+                let y = heightRandGen();
+                const tmp = this._gamingBoard[x][y].tyle;
+                this._gamingBoard[x][y].tyle = this._gamingBoard[i][j].tyle; 
+                this._gamingBoard[i][j].tyle = tmp;
+            }
+        }
     }
 
     /**
@@ -89,6 +103,12 @@ module.exports = class Board {
      * @returns {Array.<BaseCell[]>} Возвращает массив ячеек, 1 массив колонки, 2 массив ряды
      */
     getCells() {
-        return this._gamingBoard;
+        const cells = [];
+        for(const col of this._gamingBoard) {
+            cells.push([]);
+            for(const row of col)
+                cells[row.x][row.y] = new BaseCell(row.x, row.y, new Tyle(row.tyleColor));
+        }
+        return cells;
     }
 }

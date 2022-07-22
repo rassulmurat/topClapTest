@@ -3,6 +3,8 @@
 const BaseCell = require("../models/BaseCell");
 const Board = require("../models/Board");
 const Tyle = require("../models/Tyle");
+const random = require("random");
+const TyleGenerator = require("../models/TyleGenerator");
 
 const buildBoard = (height, width) => {
     const tyles = new Array(height * width);
@@ -52,9 +54,6 @@ test("Delete tyles", () => {
 });
 
 test("Fill empty", () => {
-    function getRandom(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
 
     const height = 5;
     const width = 5;
@@ -87,4 +86,26 @@ test("Fill empty", () => {
     expect(cells[3][4].tyleColor).toBe("red");
     expect(cells[3][3].tyleColor).toBe("red");
     expect(cells[3][2].tyleColor).toBe("red");
+});
+
+test("Shuffle", () => {
+    const height = 10;
+    const width = 10;
+    const tyles = new Array(height * width);
+    for (let i = 0; i < height * width; ++i) {
+        tyles[i] = TyleGenerator.genNextTyle(5);
+    }
+    const board = new Board(height, width, tyles);
+    let cellsBefore = board.getCells();
+    board.shuffleTyles();
+    let cellsAfter = board.getCells();
+    let repeatNumber = 0;
+    cellsAfter = cellsAfter.flat();
+    cellsBefore = cellsBefore.flat();
+    for(let i = 0; i < cellsAfter.length; ++i) {
+        if (cellsBefore[i].tyleColor === cellsAfter[i].tyleColor)
+            ++repeatNumber
+    }
+    // Лучше не проводить следующий тест, так как из-за случайных шафлов цвета могут повторяться
+    // expect(repeatNumber).toBeLessThan(height * width * 0.25); // Expect number of repeated color before and after shuffle to be less than 25% 
 });

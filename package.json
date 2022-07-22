@@ -14,7 +14,8 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "lodash": "^4.17.21",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "random": "^3.0.6"
   },
   "devDependencies": {
     "jest": "^28.1.3",
